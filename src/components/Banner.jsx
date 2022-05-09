@@ -1,15 +1,48 @@
+import { useEffect, useState } from "react";
 import "./Banner.scss"
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import requests from "../config/Requests";
+import axios from "axios";
 
 export const Banner = () => {
 
+    const [movie, setMovie] = useState([])
+
+    useEffect(() => {
+      async function fetchData() {
+          const request = await axios.get(requests.fetchTrending);
+
+          setMovie(
+              request.data.results[
+                  Math.floor(Math.random() * request.data.results.length - 1)
+              ]
+          )
+      }
+      fetchData()
+    }, [])
+
+    console.log(movie);
+
+    function truncateText(string, n) {
+        return string?.length > n && string.substring(0, n - 1) + "...";
+    }
+
+    const bannerStyle = {
+        backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center center"
+    }
+    
+
     return (
-        <header className='banner'>
+        <header className='banner' style={bannerStyle}>
             <div className="banner__content">
-                <h1 className="banner__title">Titre</h1>
-                <p className="banner__description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo ad iure maiores, numquam voluptate sapiente id facilis nostrum. Minus explicabo, aperiam sapiente dicta esse obcaecati neque cupiditate magnam rerum earum!</p>
+                <h1 className="banner__title">{movie?.title || movie?.original_title || movie?.name}</h1>
+                <p className="banner__description">{truncateText(movie?.overview, 100)}</p>
                 <div className="banner__buttons">
-                    <button className="banner__button banner__button--play">Lecture</button>
-                    <button className="banner__button">Plus d'infos</button>
+                    <button className="banner__button banner__button--play"><PlayArrowIcon /> Lecture</button>
+                    <button className="banner__button"><HelpOutlineIcon /> Plus d'infos</button>
                 </div>
             </div>
         </header>
