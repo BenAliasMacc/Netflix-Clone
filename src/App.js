@@ -1,4 +1,6 @@
-import './App.css';
+import './App.scss';
+import { Banner } from './components/Banner';
+import { Footer } from './components/Footer';
 import { Nav } from './components/Nav';
 
 
@@ -7,13 +9,13 @@ function App() {
     <div className="App">
       <Nav />
 
-      {/* banner */}
+      <Banner />
       <div className='test'></div>
       {/* rows */}
 
       {/* quick view */}
 
-      {/* footer */}
+      <Footer />
     </div>
   );
 }

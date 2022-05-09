@@ -9,6 +9,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 export const Nav = () => {
 
     const [navBlack, setNavBlack] = useState(false);
+    const [toggleMenu, setToggleMenu] = useState(false);
 
     const transitionNav = () => {
         window.scrollY > 100 ? setNavBlack(true) : setNavBlack(false);
@@ -18,11 +19,13 @@ export const Nav = () => {
         document.addEventListener("scroll", transitionNav);
     })
 
-    console.log(navBlack);
+    const handleClick = () => {
+        toggleMenu ? setToggleMenu(false) : setToggleMenu(true)
+    }
 
   return (
-    <div className={`nav ${navBlack && "nav--black"}`}>
-        <button className="nav__burger">
+    <div className={`nav ${navBlack || toggleMenu && "nav--black"} ${toggleMenu && "show"}`}>
+        <button className="nav__burger" onClick={handleClick}>
             <MenuIcon />
         </button>
         <img src="./images/logo.png" className="nav__logo" alt="Netflix" />
