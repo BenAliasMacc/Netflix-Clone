@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import "./Row.scss"
+import { Link } from "react-router-dom"
 
-export const Row = ({ title, fetchUrl }) => {
+export const Row = ({ title, fetchUrl, isPoster }) => {
 
+    const baseUrl = "https://image.tmdb.org/t/p/original/"
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -20,9 +22,17 @@ export const Row = ({ title, fetchUrl }) => {
         <div className='row'>
             <h2 className="row__title">{title}</h2>
             <div className="row__images">
-                {movies?.map((movie) => <div key={movie.id}  >
-                    <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt={movie.title} className="row__image" />
-                </div>)}
+                {movies?.map((movie) => 
+                    <div key={movie.id}  >
+                        <Link to={`/video/${movie?.id}`}>
+                            {isPoster ? (
+                                <img src={`${baseUrl}${movie.poster_path}`} alt={movie.title} className="row__image" />
+                            ) : (
+                                <img src={`${baseUrl}${movie.backdrop_path}`} alt={movie.title} className="row__image" />
+                            )}
+                        </Link>                        
+                    </div>
+                )}
             </div>            
         </div>
     )

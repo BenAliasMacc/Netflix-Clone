@@ -1,27 +1,16 @@
+import { Home } from './components/Home';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.scss';
-import { Banner } from './components/Banner';
-import { Footer } from './components/Footer';
-import { Nav } from './components/Nav';
-import { Row } from './components/Row';
-import requests from './config/Requests';
-
+import { Video } from './components/Video';
 
 function App() {
   return (
     <div className="App">
-      <Nav />
-      <Banner />
-      <Row title="Programmes originaux Netflix" fetchUrl={requests.fetchNetflixOriginals} />
-      <Row title="Tendances actuelles" fetchUrl={requests.fetchTrending} />
-      <Row title="Les mieux notés" fetchUrl={requests.fetchTopRated} />
-      <Row title="Films d'actions" fetchUrl={requests.fetchActionMovies} />
-      <Row title="Films d'horreur" fetchUrl={requests.fetchHorrorMovies} />
-      <Row title="Comédie" fetchUrl={requests.fetchComedyMovies} />
-      <Row title="Documentaires" fetchUrl={requests.fetchDocumentaries} />
-
-      {/* quick view */}
-
-      <Footer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/video/:id" element={<Video />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
     </div>
   )
 }

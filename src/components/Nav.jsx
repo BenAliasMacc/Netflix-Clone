@@ -24,7 +24,7 @@ export const Nav = () => {
     }
 
   return (
-    <div className={`nav ${navBlack || toggleMenu && "nav--black"} ${toggleMenu && "show"}`}>
+    <div className={`nav ${navBlack || toggleMenu ? "nav--black" : "nav--transparent" } ${toggleMenu && "show"}`}>
         <button className="nav__burger" onClick={handleClick}>
             <MenuIcon />
         </button>
