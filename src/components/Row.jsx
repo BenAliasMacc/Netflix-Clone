@@ -15,7 +15,7 @@ export const Row = ({ title, fetchUrl, isPoster }) => {
             setMovies(request.data.results)
         }
         fetchData();
-    }, [])
+    }, [fetchUrl])
 
     return (
         
